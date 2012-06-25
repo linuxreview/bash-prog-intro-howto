@@ -1,3 +1,13 @@
 BASH Programming - Introduction HOW-TO
 
 Translated by LinuxReview Team
+
+How to Generate PDF document:
+This document was written with xepersian package, so you need to have xelatex
+installed on your system before running the make command. The fonts that were
+used for writing this document are Linux Libertine, XB Niloofar, Yas and
+Courier 10 Pitch. Obviously, These fonts should also be installed on you 
+system.
+If all goes well, after running the make command, you should see a file 
+named bash-prog-intro-howto.pdf in source directory, which is the PDF output 
+of this document. 
