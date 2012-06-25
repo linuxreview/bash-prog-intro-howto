@@ -1,0 +1,122 @@
+\chapter{متفرقه}
+\section*{خواندن ورودی‌ کاربر با {\codefont read}}
+در بیشتر مواقع شما نیاز دارید که از کاربر ورودی‌هایی دریافت کنید‌، و راه‌های زیادی
+برای تحقق این عمل وجود دارد‌. این راه یکی از آن‌هاست‌:
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+echo Please, enter your name
+read NAME
+echo "Hi $NAME!"
+\end{lstlisting}
+\end{latin}
+به روشی دیگر‌، می‌توانید با \code{read} چند مقدار دریافت کنید‌، این مثال بیانگر این روش
+است.
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+echo Please, enter your firstname and lastname
+read FN LN
+echo "Hi! $LN, $FN !"
+\end{lstlisting}
+\end{latin}
+
+\section*{محاسبات ریاضی}
+در خط فرمان (یا شل) این را امتحان کنید‌:
+\begin{latin}
+\begin{lstlisting}
+echo 1 + 1
+\end{lstlisting}
+\end{latin}
+اگر انتظار دارید که «\code{2}» را ببینید‌، نا امید می‌شوید‌. اگر می‌خواهید که \lr{bash} اعداد
+شما را محاسبه کند‌، چاره این است‌:
+\begin{latin}
+\begin{lstlisting}
+echo $((1+1))
+\end{lstlisting}
+\end{latin}
+این، خروجی منطقی‌تری بدست می‌دهد. این روشی برای محاسبه یک عبارت ریاضیاتی است‌. شما
+همچنین به این طریق هم می‌توانید آن را انجام دهید‌:
+\begin{latin}
+\begin{lstlisting}
+echo $[1+1]
+\end{lstlisting}
+\end{latin}
+اگر نیاز به استفاده از کسرها یا محاسبه‌ی عبارات ریاضی بیشتری دارید، می‌توانید از
+\code{bc} برای انجام آن محاسبات استفاده کنید‌.
+
+اگر
+«\code{echo \textdollar [3/4]}»
+را در خط فرمان اجرا کنم‌، عدد صفر برگردانده می‌شود برای این که
+\lr{bash} موقع جواب دادن فقط از \rlsquote{اعداد صحیح} استفاده می‌کند‌. اگر 
+«\code{echo 3/4|bc -l}»
+ را اجرا کنید‌، جواب \code{0.75} برگشت داده می‌شود.
+
+\section*{یافتن bash}
+این بخش در پیامی از طرف مایک ارسال شده است (بخش 'قدردانی' را ببینید): شما همیشه
+از \code{‎\#!/bin/bash...} استفاده می‌کنید، اگر امکان دارد مثالی از چگونگی یافتن محل استقرار
+\lr{bash} بزنید‌. ارجحترین روش «\code{locate bash}» است‌، اما همه‌ی ماشین‌ها \code{locate} را ندارند‌.
+اجرای دستور زیر در مسیر ریشه
+\footnote{
+در لینوکس (و سیستم‌های یونیکس مبنا) همه‌ی فایل‌ها و دایرکتوری‌ها مستقیماً یا به‌طور
+غیرمستقیم زیردایرکتوری ریشه هستند. ریشه در این سیستم‌ها با / نمایش داده می‌شود.
+(مترجم)
+}
+از طرف کاربر \lr{root} هم معمولاً نتیجه می‌دهد‌:
+\begin{latin}
+\begin{lstlisting}
+find ./ -name bash
+\end{lstlisting}
+\end{latin}
+مکان‌های پیشنهادی برای چک کردن:
+
+\begin{latin}
+\begin{itemize}
+\item{\code{ls -l /bin/bash}}
+\item{\code{ls -l /sbin/bash}}
+\item{\code{ls -l /usr/local/bin/bash}}
+\item{\code{ls -l /usr/bin/bash}}
+\item{\code{ls -l /usr/sbin/bash}}
+\item{\code{ls -l /usr/local/sbin/bash}}
+\end{itemize}
+\end{latin}
+می‌توانید دستور «\code{which bash}» را هم امتحان کنید‌.
+
+
+
+\section*{دریافت مقدار بازگردانده شده از یک برنامه}
+
+در بش، مقدار بازگردانده شده از یک برنامه در یک متغییر خاص به نام ‎\code{\textdollar ?}‎ نگه‌داری می‌شود.
+
+در اینجا نحوه دریافت مقدار بازگردانده شده از یک برنامه نشان داده می‌شود. فرض کنید
+که دایرکتوری \lr{dada} وجود ندارد (مایک اسم این دایرکتوری را پیشنهاد داد).
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+cd /dada &> /dev/null
+echo rv: $?
+cd $(pwd) &> /dev/null
+echo rv: $?
+\end{lstlisting}
+\end{latin}
+
+\section*{گرفتن خروجی یک دستور}
+این اسکریپت کوچک تمام \lr{Table‌}ها از تمام بانک‌های اطلاعاتی را نمایش می‌دهد (با این
+فرض که شما \lr{MySQL} را نصب کرده‌ باشید). توجه کنید که دستور «\code{mysql}» را برای استفاده
+از نام کاربری و رمز عبور معتبر تغییر دهید.
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+DBS=`mysql -uroot -e"show databases"`
+for b in $DBS ;
+do
+	mysql -uroot -e"show tables from $b"
+done
+\end{lstlisting}
+\end{latin}
+
+\section*{چند فایل‌ منبع}
+
+می‌توانید با دستور \code{source} از چند فایل‌ منبع استفاده کنید.
+
+\lr{\_\_TO-DO\_\_}

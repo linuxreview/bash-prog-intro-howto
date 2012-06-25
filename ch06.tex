@@ -1,0 +1,79 @@
+\chapter{شروط}
+شروط به شما اجازه می‌دهند تصمیم بگیرید که عملی انجام شود یا نه‌. این تصمیم‌گیری
+بر اساس بررسی درستی عبارات انجام می‌شود‌.
+
+\section*{تئوری خشک}
+شروط، فرم‌های زیادی دارند‌. پایه‌ای‌ترین فرم‌:
+\lr{{\codefont \textbf{if}} expression {\codefont \textbf{then}} statement}
+است که در این فرم بخش «\lr{statement}» زمانی اجرا می‌شود که عبارت «\lr{expression}» از نظر منطقی
+درست باشد‌. به عنوان مثال «\code{2<1}» یک عبارت غلط است‌، در صورتی که «\code{1<2}» یک عبارت درست
+است‌.
+
+شروط فرم‌های دیگری هم دارند‌، مثل:
+\lr{{\codefont \textbf{if}} expression {\codefont \textbf{then}} statement1 {\codefont \textbf{else}} statement2}.
+در اینجا «\lr{statement1}» زمانی اجرا می‌شود که «\lr{expression}» درست باشد‌‌، در غیر این
+صورت «\lr{statement2}» اجرا می‌شود‌.
+
+یک فرم شرطی دیگر این است:
+\begin{flushleft}
+\lr{{\codefont \textbf{if}} expression1 {\codefont \textbf{then}} statement1 {\codefont \textbf{else if}} expression2 
+{\codefont \textbf{then}} statement2 {\codefont \textbf{else}} statement3}
+\end{flushleft}
+
+اگر «\lr{expression1}» درست بود «\lr{statement1}» و اگر «\lr{expression2}» صحیح بود «\lr{statement2}»
+و در غیر این صورت «\lr{statement3}» اجرا می‌شود. در این فرم فقط یک بخش
+\dbquote{\lr{{\codefont \textbf{ELSE IF}} \lrsquote{expression2} {\codefont \textbf{THEN}} \lrsquote{statement2}}}
+ اضافه شده است که اجازه می‌دهد «\lr{statement2}» بعد از اینکه عبارت
+«\lr{expression2}» صحیح بود، اجرا شود. نحوه‌ی عملکرد مابقی این فرم‌ را می‌توانید خودتان
+تصور کنید. (فرم‌های قبلی را ببینید).
+
+کمی در مورد ساختار دستور:
+
+ساختار پایه‌ای «\code{if}» در \lr{bash} به این صورت است‌:
+\begin{flushleft}
+\noindent \code{];}عبارت\code{if [} \\
+\noindent \code{then} \\
+کدی که در صورت درست بودن «عبارت» باید اجرا شود\noindent \\
+\noindent \code{fi}
+\end{flushleft}
+
+\begin{example}{یک مثال ساده به‌صورت \code{if .. then}}
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+if [ "foo" = "foo" ]; then
+	echo expression evaluated as true
+fi
+\end{lstlisting}
+\end{latin}
+اگر عبارت داخل کروشه درست باشد کدی که بعد از \rlsquote{\code{\code{then}}} و قبل از \rlsquote{\code{\code{fi}}} باشد اجرا می‌شود.
+\rlsquote{\code{\code{fi}}} نمایانگر پایان بلوک شرطی کد است.
+\end{example}
+
+\begin{example}{نمونه‌ای از یک شرط ابتدایی به صورت \code{if .. then .. else}}
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+if [ "foo" = "foo" ]; then
+	echo expression evaluated as true
+else
+	echo expression evaluated as false
+fi
+\end{lstlisting}
+\end{latin}
+\end{example}
+
+\begin{example}{شروط به همراه متغیر‌ها}
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+T1="foo"
+T2="bar"
+if [ "$T1" = "$T2" ]; then
+	echo expression evaluated as true
+else
+	echo expression evaluated as false
+fi
+\end{lstlisting}
+\end{latin}
+\end{example}

@@ -1,0 +1,294 @@
+\chapter{جدول‌ها}
+\section*{عملگرهای مقایسه‌ی مقادیر رشته‌ای}
+\begin{enumerate}
+\item{\code{s1 = s2}}
+\item{\code{s1 != s2}}
+\item{\code{s1 < s2}}
+\item{\code{s1 > s2}}
+\item{\code{‎-n s1}}
+\item{\code{‎-z s1}}
+\end{enumerate}
+
+\begin{enumerate}
+\item{\code{s1} تطبیق می‌کند با \code{s2}}
+\item{\code{s1} تطبیق نمی‌کند با \code{s2}}
+\item{\lr{\_\_TO-DO\_\_}}
+\item{\lr{\_\_TO-DO\_\_}}
+\item{\code{s1} تهی (\lr{null}) نیست (حاوی یک یا چند کاراکتر است)}
+\item{\code{s1} تهی است}
+\end{enumerate}
+
+\section*{مثال‌هایی از مقایسه‌ی مقادیر رشته‌ای}
+مقایسه دو متغیر رشته‌ای.
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+S1='string'
+S2='String'
+if [ $S1=$S2 ];
+then
+	echo "S1('$S1') is not equal to S2('$S2')"
+fi
+if [ $S1=$S1 ];
+then
+	echo "S1('$S1') is equal to S1('$S1')"
+fi
+\end{lstlisting}
+\end{latin}
+
+من در اینجا متنی را از یک ایمیل نقل می‌کنم‌ که توسط آندریس بک‌ ارسال شده است، که به
+استفاده از \code{if [\textdollar 1=\textdollar 2]}‎ اشاره دارد. این ایده‌ی خوبی نیست‌، به این صورت که اگر یکی
+از دو متغییر ‎\code{\textdollar S1} یا ‎\code{\textdollar S2} خالی‌ باشند، شما با خطای پارسر (\lr{parser error}) روبرو خواهید
+شد‌. استفاده از \code{x\textdollar 1=x\textdollar 2} یا \code{‎"\textdollar 1"‎=‎"\textdollar 2"}‎ بهتر است‌.
+
+\section*{عملگرهای حسابی}
+
+\begin{itemize}
+\item{\code{+}}
+\item{\code{-}}
+\item{\code{*}}
+\item{\code{/}}
+\item{\code{\%} (باقی‌مانده)}
+\end{itemize}
+
+\section*{عملگرهای رابطه‌ای حسابی}
+\begin{itemize}
+\item{\code{‪-lt (<)}}
+\item{\code{‪‪-gt (>)}}
+\item{\code{‪‪-le (<=)}}
+\item{\code{‪‪-ge (>=)}}
+\item{\code{‪‪-eq (==)}}
+\item{\code{‪‪-ne (!=)}}
+\end{itemize}
+برنامه نویسان \lr{C} باید عملوند‌های متناظر با پرانتز‌های فوق را به یاد داشته باشند.
+
+\section*{دستورهایی مفید}
+این قسمت توسط کِیس (\lr{Kees}) بازنویسی شده است. ( قسمت با تشکر از ... را ببینید)
+
+بعضی از این دستورات تقریبا زبان‌های برنامه نویسی کاملی هستند. برای آن دستورات فقط
+اصول اولیه شرح داده شده است. برای اطلاع از جزییات بیشتر نگاهی به صفحه \code{man} هر کدام
+از دستورات بیاندازید.
+
+\subsection*{{\codefont sed} (ویرایشگر جاری)}
+\lr{Sed} یک ویرایشگر غیر تعاملی است. به جای تغییر یک فایل با جابجا کردن نشانگر بر روی
+صفحه، یک اسکریپت حاوی دستورالعمل‌های ویرایشی به \code{sed} می‌فرستید، به علاوه نام فایلی
+که باید ویرایش شود. شما همچنین می‌توانید \code{sed} را یک فیلتر در نظر بگیرید. بیایید یک
+نگاهی به چند مثال‌ بیاندازیم‌:
+\begin{latin}
+\begin{lstlisting}
+$sed 's/to_be_replaced/replaced/g' /tmp/dummy
+\end{lstlisting}
+\end{latin}
+\lr{Sed} رشته \rlsquote{\code{to\_be\_replaced}} را با رشته \rlsquote{\code{replaced}} عوض می‌کند و ورودی را از فایل \code{\/tmp/dummy}
+می‌خواند‌. نتیجه به \code{stdout} (در حالت عادی کنسول) ارسال می‌شود‌. اما شما همچنین می‌توانید
+«\code{‎> capture}»
+را به انتهای خط بالا اضافه کنید‌، تا \code{sed} خروجی دستور را به فایل «\code{capture}»
+بفرستد‌.
+\begin{latin}
+\begin{lstlisting}
+$sed 12, 18d /tmp/dummy
+\end{lstlisting}
+\end{latin}
+\code{sed} همه خطوط غیر از خطوط 12 تا 18 را نمایش می‌دهد‌. فایل اصلی با این دستور جایگزین
+نشده است‌.
+
+
+\subsection*{{\codefont awk} (دست‌کاری فایل‌های داده‌، خروجی‌های متنی و پروسه‌ها)}
+پیاده‌سازی‌های بسیاری از زبان برنامه‌نویسی \lr{AWK} وجود دارد (\lr{GNU's gawk}
+و \lrsquote{\lr{new awk}} از مشهورترین مفسران آن می‌باشند). مبنای کار آن ساده است: \lr{AWK} به دنبال الگوها می‌گردد و برای
+هر الگوی مشابه یافت شده عملی انجام می‌دهد.
+
+دوباره، من یک فایل ساختگی
+\footnote{
+فایل‌های ساختگی در سراسر این بخش با نام \code{dummy} در مسیر \code{‎/tmp/dummy} ساخته می‌شوند.
+(مترجم)
+}
+شامل خطوط زیر ساختم:
+\begin{latin}
+\begin{lstlisting}
+"test123
+test
+tteesstt"
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+$awk '/test/ {print}' /tmp/dummy
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+test123
+test
+\end{lstlisting}
+\end{latin}
+الگوی AWK به دنبال «\code{test}» می‌گردد و زمانی که در فایل \code{ ‎/tmp/dummy} خطی حاوی رشته‌ی
+«\code{test}» پیدا کند‌، عمل \code{print} را انجام می‌دهد
+\footnote{
+عمل \code{print} در اینجا نمایش خروجی بر روی صفحه نمایش است و نباید با عمل چاپ که با کمک
+پرینتر انجام می‌شود اشتباه گرفته شود. (مترجم)
+}.
+\begin{latin}
+\begin{lstlisting}
+$awk '/test/ {i=i+1} END {print i}' /tmp/dummy
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+3
+\end{lstlisting}
+\end{latin}
+
+زمانی که به دنبال الگوهای زیادی می‌گردید، باید متن بین نقل قول‌ها را با \rlsquote{\code{‎-f file.awk}}
+عوض کنید. در نتیجه می‌توانید همه الگوها و عملکردها را در فایل \rlsquote{\code{file.awk}} قرار دهید.
+
+
+\subsection*{{\codefont grep} (خطوطی را که با الگوی جستجو شده تطبیق داشته باشند چاپ می‌کند)}
+در فصل قبل دستورات \code{grep} خیلی محدودی را دیدیم که خطوط مطابق با یک الگوی خاص را
+نشان می‌داد، ولی در نظر داشته باشید \code{grep} کارهای بیشتری می‌تواند انجام دهد.
+\begin{latin}
+\begin{lstlisting}
+$grep "look for this" /var/log/messages -c
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+12
+\end{lstlisting}
+\end{latin}
+
+رشته \dbquote{\code{look for this}} در فایل ‎\code{/var/log/messages} دوازده بار پیدا شده است.
+
+\subsection*{{\codefont wc} (خطوط، کلمه‌ها و بایت‌ها را می‌شمارد)}
+در مثال بعدی خواهیم دید که خروجی آن چیزی
+که ما انتظارش را داریم نخواهد بود. فایل ساختگی‌ای که در این مثال مورد استفاده قرار
+می‌گیرد شامل متن زیر است:
+\begin{latin}
+\begin{lstlisting}
+"bash introduction howto test file"
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+$wc --words --lines --bytes /tmp/dummy
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+2 5 34 /tmp/dummy
+\end{lstlisting}
+\end{latin}
+
+\code{wc} اهمیتی به چینش پارامترها نمی‌دهد. \code{wc} همیشه آنها را با یک نظم استاندارد چاپ می‌کند،
+همانگونه که در ادامه می‌بینید.
+
+
+
+\subsection*{{\codefont sort} (مرتب‌سازی خطوط فایل‌های متنی)}
+این بار فایل ساختگی شامل خطوط زیر می‌باشد:
+\begin{latin}
+\begin{lstlisting}
+"b
+c
+a"
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+$sort /tmp/dummy
+\end{lstlisting}
+\end{latin}
+
+خروجی به این شکل خواهد بود:
+\begin{latin}
+\begin{lstlisting}
+a
+b
+c
+\end{lstlisting}
+\end{latin}
+دستورات نباید به این سادگی باشند.
+
+\subsection*{{\codefont bc} (زبان برنامه‌نویسی ماشین حساب)}
+\code{bc} معادله‌ها را از طریق خط فرمان (از ورودی فایل، نه از \lr{redirector} یا \lr{pipe}) و همچنین
+از یک رابط کاربری دریافت می‌کند. توضیحاتی که در ادامه آورده شده است به شما تعدادی از فرمان‌ها
+را نشان خواهد داد. توجه کنید که من \code{bc} را با استفاده از پارامتر \code{‎-q} برای جلوگیری
+از نمایش پیغام خوش‌ آمد، اجرا می‌‌کنم.
+
+\begin{latin}
+\begin{lstlisting}
+$bc -q
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+1 == 5
+0
+0.05 == 0.05
+1
+5 != 5
+0
+2 ^ 8
+256
+sqrt(9)
+3
+while (i != 9) {
+	i = i + 1;
+	print i
+}
+123456789
+quit
+\end{lstlisting}
+\end{latin}
+
+
+\subsection*{{\codefont tput} (مقدار دهی اولیه یک ترمینال یا پرس‌ و جو از پایگاه داده terminfo )}
+نمایش ذره‌ای از قابلیت‌های \code{tput}:
+\begin{latin}
+\begin{lstlisting}
+$tput cup 10 4
+\end{lstlisting}
+\end{latin}
+مکان‌نما (\lr{prompt}) در مختصات
+$(x = 4, y = 10)$
+نمایان می‌شود.
+
+\begin{latin}
+\begin{lstlisting}
+$tput reset
+\end{lstlisting}
+\end{latin}
+صفحه را پاک می‌کند و مکان‌نما در
+$(x = 1, y = 1)$ 
+ظاهر می‌شود. توجه کنید که
+$(x = 0, y = 0)$
+گوشه سمت
+چپ-بالا است.
+\begin{latin}
+\begin{lstlisting}
+$tput cols
+\end{lstlisting}
+\end{latin}
+
+\begin{latin}
+\begin{lstlisting}
+80
+\end{lstlisting}
+\end{latin}
+تعداد کاراکترهای قابل نمایش در راستای
+$(x = 0, y = 0)$
+را نشان می‌دهد.
+
+شدیداً توصیه می‌شود که (حداقل) با این برنامه‌ها آشنا باشید. هزاران برنامه‌ی کوچک
+وجود دارد که به شما اجازه می‌دهد یک شعبده‌بازی واقعی در خط فرمان اجرا کنید
+\footnote{
+برخی نمونه‌ها از صفحات \code{man} و یا پرسش و پاسخ‌های متداول برگرفته شده بود.
+}.

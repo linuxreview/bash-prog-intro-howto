@@ -1,0 +1,89 @@
+\documentclass[a4paper, 12pt]{report}
+
+\usepackage{amsthm}
+\usepackage{geometry}
+\usepackage{color}
+\usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{%
+    pdfborder = {0 0 0}
+}
+
+\geometry{a4paper, tmargin=20mm, bmargin=20mm, lmargin=20mm, rmargin=20mm, footskip=10mm}
+
+\usepackage{xepersian}
+\settextfont[Scale=1.0]{XB Niloofar}
+\setlatintextfont{Linux Libertine}
+\setdigitfont{Yas}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.85,0.85,0.85}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{red}{rgb}{1,0,0}
+
+\lstset{
+	language=bash,
+	showstringspaces=false,
+	basicstyle=\footnotesize\ttfamily,
+	backgroundcolor=\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+  	stringstyle=\color{mauve},
+  	breaklines=true,
+  	tabsize=4  	
+}
+
+%\newtheorem{definition}{تعریف}[section]
+%\newtheorem{example}[definition]{مثال}
+
+\deflatinfont\codefont[Scale=0.9]{Courier 10 Pitch}
+
+\newcommand{\dbquote}[1]{\textquotedblright#1\textquotedblleft}
+\newcommand{\rlsquote}[1]{\textquoteright#1\textquoteleft}
+\newcommand{\lrsquote}[1]{\textquoteleft#1\textquoteright}
+\newcommand{\code}[1]{\lr{\codefont #1}}
+
+\newenvironment{example}[1]{\vspace{5pt} \noindent \textbf{مثال.}\ \ \textbf{#1}\newline}{\vspace{5pt}}
+\newenvironment{codeblock}{\begin{latin}\begin{lstlisting}}{\end{lstlisting}\end{latin}}
+
+
+\title{\textbf{{\Huge {\Huge \raggedleft آشنایـی
+\\ \centering با
+\\ \hfill بَش}
+}}\vfill}
+
+\author{کاری از گروه: \lr{LinuxReview}‎}
+\date{خرداد ۹۱}
+
+
+\begin{document}
+
+\maketitle
+
+\pagenumbering{harfi}
+\baselineskip=0.75cm
+
+\input{info}
+
+\tableofcontents
+\newpage
+\pagenumbering{arabic}
+
+\input{ch00}
+\input{ch01}
+\input{ch02}
+\input{ch03}
+\input{ch04}
+\input{ch05}
+\input{ch06}
+\input{ch07}
+\input{ch08}
+\input{ch09}
+\input{ch10}
+\input{ch11}
+\input{ch12}
+\input{ch13}
+\input{ch14}
+
+\end{document}

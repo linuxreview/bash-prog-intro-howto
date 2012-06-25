@@ -1,0 +1,77 @@
+\chapter{حلقه‌های {\codefont for} و {\codefont while} و {\codefont until}}
+در این بخش شما با حلقه‌های \code{for‏}، \code{while} و \code{until} آشنا خواهید شد‌.
+
+حلقه‌ی \textbf{\code{for}} در اینجا کمی با دیگر زبان‌های برنامه نویسی متفاوت است‌. اساساً، این حلقه
+به شما اجازه می‌دهد که «لغات» یک رشته متنی را پیمایش کنید
+\footnote{
+برای درک عملکرد این حلقه تصور کنید یک رشته متنی داشته باشید و بخواهید یک به یک واژه‌های
+آن را بررسی کنید. (مترجم)
+}.
+
+حلقه‌ی \textbf{\code{while}} تا زمانی که عبارت کنترلی درست باشد‌، قطعه کدی را اجرا می‌کند، و فقط
+زمانی متوقف می‌شود که عبارت کنترلی غلط شود (یا این که در روند اجرای تکه کد صراحتاً
+با عبارت \code{break} مواجه شود).
+
+حلقه \textbf{\code{until}} تقریباً با حلقه \code{while} برابر است‌، جز این که در این حلقه تا زمانی که عبارت
+کنترلی غلط باشد، کد اجرا می‌شود.
+
+اگر فکر می‌کنید‌ \code{while} و \code{until} خیلی به هم شبیه‌اند‌، درست فکر می‌کنید‌.
+\section*{برای نمونه}
+\begin{latin}
+\begin{lstlisting}[numbers=left, numberstyle=\color{red}]
+#!/bin/bash
+for i in $( ls ); do
+	echo item: $i
+done
+\end{lstlisting}
+\end{latin}
+\quad \ \ \ در خط دوم ما \code{i} را به عنوان متغیر معرفی کرده‌ایم که می‌تواند مقادیر مختلف حاصل از
+اجرای ‎\code{\textdollar( ls )}‎ را بگیرد.
+
+خط سوم در صورت نیاز می‌تواند طولانی‌تر باشد و یا می‌توان خطوط بیشتری پیش از خط \code{done}
+اضافه کرد.
+
+\rlsquote{\code{done}} بیانگر این است که استفاده از متغییر \code{\textdollar i} به پایان رسیده و \code{\textdollar ‎i} می‌تواند مقدار
+جدیدی دریافت کند.
+
+این اسکریپت چندان مفید نیست، یک راه برای استفاده مفید‌تر از حلقه \code{for} در این مثال
+این ‌است که از آن برای دسترسی به فایل‌های خاصی استفاده شود.
+
+\section*{{\codefont for} شبیه {\codefont C}}
+\lr{fiesh} پیشنهاد داد که این فرم حلقه‌ را هم اضافه کنیم. این حلقه \code{for} بیشتر شبیه حلقه‌های
+\code{for} در زبان‌های \code{C‏}، \code{perl} و \ldots است.
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+for i in `seq 1 10`;
+do
+	echo $i
+done
+\end{lstlisting}
+\end{latin}
+
+\section*{نمونه {\codefont While}}
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+COUNTER=0
+while [ $COUNTER -lt 10 ]; do
+	echo The counter is $COUNTER
+	let COUNTER=COUNTER+1
+done
+\end{lstlisting}
+\end{latin}
+این اسکریپت ساختار \code{for} زبان‌های مشهور (\code{C}, \code{Pascal}, \code{perl}, و غیره) را سرمشق قرار داده
+است.
+
+\section*{نمونه {\codefont until}}
+\begin{latin}
+\begin{lstlisting}
+#!/bin/bash
+COUNTER=20
+until [ $COUNTER -lt 10 ]; do
+	echo COUNTER $COUNTER
+	let COUNTER-=1
+done
+\end{lstlisting}
+\end{latin}
